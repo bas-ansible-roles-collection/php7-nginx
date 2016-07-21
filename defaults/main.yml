@@ -1,0 +1,6 @@
+---
+# Default variables - inventory or playbook overrides will be respected
+
+# BARC specific variables
+php7_nginx_barc_role_name: php7_nginx
+php7_nginx_barc_role_version: 0.1.0
