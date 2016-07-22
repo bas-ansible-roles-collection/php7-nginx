@@ -10,6 +10,8 @@ Remember: Make sure to update `php7_nginx_barc_role_version` variable when a new
 ### Fixed
 
 * Location of PHP-FPM socket file on Ubuntu
+* Mitigating HTTPOXY vulnerability - https://httpoxy.org/
+
 ## 0.1.0 - 22/07/2016
 
 ### Added
