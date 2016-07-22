@@ -1,0 +1,34 @@
+---
+# Install PHP-FPM
+
+# If using non-system sources
+
+- name: install PHP-FPM for PHP 7 from non-system sources - CentOS
+  yum:
+             pkg={{ item }}
+    update_cache=yes
+           state=present
+  with_items:
+  - php70w-fpm
+  when: ansible_distribution == "CentOS" and
+    (BARC_use_non_system_package_sources == true or BARC_use_non_system_package_sources == 'True')
+
+- name: install PHP-FPM for PHP 7 from non-system sources - Ubuntu
+  apt:
+                 pkg={{ item }}
+        update_cache=yes
+    cache_valid_time=3600
+               state=present
+  with_items:
+  - php-fpm
+  when: ansible_distribution == "Ubuntu" and
+    BARC_use_non_system_package_sources == true or BARC_use_non_system_package_sources == 'True'
+
+# Enable php-fpm service to start on system startup on CentOS
+
+- name: enable PHP-FPM service on startup - CentOS
+  service:
+       name=php-fpm
+    enabled=yes
+      state=started
+  when: ansible_distribution == "CentOS"

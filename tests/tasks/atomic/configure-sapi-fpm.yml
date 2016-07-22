@@ -1,0 +1,30 @@
+---
+# Test if the PHP 5 FPM SAPI is configured correctly
+
+- name: get contents of default FPM pool configuration file which contains PHP FPM SAPI configuration - CentOS
+  command: cat /etc/php-fpm.d/www.conf
+  changed_when: false
+  register: php7_nginx_test_fact_fpm_sapi_centos_configuration_file_contents
+  when: ansible_distribution == "CentOS"
+- name: assert PHP FPM SAPI configuration options are set correctly in default FPM pool configuration file - CentOS
+  assert:
+    that:
+      - "'php_{{ item.1.type }}[{{ item.1.option }}] = {{ item.1.value }}' in php7_nginx_test_fact_fpm_sapi_centos_configuration_file_contents.stdout"
+  with_subelements:
+    - "{{ php7_nginx_sapi_fpm_options }}"
+    - options
+  when: ansible_distribution == "CentOS"
+
+- name: get contents of PHP FPM SAPI configuration file - Ubuntu
+  command: cat /etc/php/7.0/fpm/php.ini
+  changed_when: false
+  register: php7_nginx_test_fact_fpm_sapi_ubuntu_configuration_file_contents
+  when: ansible_distribution == "Ubuntu"
+- name: assert PHP FPM SAPI configuration file was generated correctly - Ubuntu
+  assert:
+    that:
+      - "'{{ item.1.option }} = {{ item.1.value }}' in php7_nginx_test_fact_fpm_sapi_ubuntu_configuration_file_contents.stdout"
+  with_subelements:
+    - "{{ php7_nginx_sapi_fpm_options }}"
+    - options
+  when: ansible_distribution == "Ubuntu"

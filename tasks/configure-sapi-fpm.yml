@@ -1,0 +1,26 @@
+---
+# Configures the PHP-FPM SAPI
+
+- name: configure FPM SAPI via default FPM pool configuration file - CentOS
+  ini_file:
+       dest=/etc/php-fpm.d/www.conf
+    section='www'
+     option='php_{{ item.1.type }}[{{ item.1.option }}]'
+      value='{{ item.1.value }}'
+  with_subelements:
+    - "{{ php7_nginx_sapi_fpm_options }}"
+    - options
+  notify: Restart PHP-FPM-CentOS
+  when: ansible_distribution == "CentOS"
+
+- name: configure FPM SAPI configuration file - Ubuntu
+  ini_file:
+       dest=/etc/php/7.0/fpm/php.ini
+    section='{{ item.0.section }}'
+     option='{{ item.1.option }}'
+      value='{{ item.1.value }}'
+  with_subelements:
+    - "{{ php7_nginx_sapi_fpm_options }}"
+    - options
+  notify: Restart PHP-FPM-Ubuntu
+  when: ansible_distribution == "Ubuntu"

@@ -24,3 +24,5 @@
 
 # Top level roles
 - src: bas-ansible-roles-collection.system-core
+- src: bas-ansible-roles-collection.php7
+- src: bas-ansible-roles-collection.nginx

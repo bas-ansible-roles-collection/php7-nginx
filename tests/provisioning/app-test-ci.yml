@@ -7,5 +7,14 @@
   become: yes
   roles:
     - ../../../php7-nginx
+  pre_tasks:
+    - name: install firewall package
+      apt:
+                     pkg={{ item }}
+            update_cache=yes
+        cache_valid_time=3600
+                   state=present
+      with_items:
+        - ufw
   tasks:
     - include: ../tasks/main.yml

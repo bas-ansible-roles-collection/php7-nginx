@@ -1,0 +1,15 @@
+---
+# Tests additional configuration files for using PHP-FPM with Nginx work
+
+- name: get contents of Nginx additional configuration files
+  command: "cat /etc/nginx/conf.d/{{ item }}.conf"
+  with_items:
+    - server-blocks/php-fpm
+    - server-blocks/fastcgi-params
+  changed_when: false
+  register: php7_nginx_test_fact_additional_nginx_configuration_files_contents
+- name: assert Nginx additional configuration files were generated correctly
+  assert:
+    that:
+      - "'# Additional configuration file' in item.stdout"
+  with_items: "{{ php7_nginx_test_fact_additional_nginx_configuration_files_contents.results }}"

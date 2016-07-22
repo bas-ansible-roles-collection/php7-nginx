@@ -1,0 +1,26 @@
+---
+# Configure PHP-FPM default pool
+
+- name: configure default PHP-FPM pool (www) - CentOS
+  ini_file:
+       dest=/etc/php-fpm.d/www.conf
+    section='{{ item.0.section }}'
+     option='{{ item.1.option }}'
+      value='{{ item.1.value }}'
+  with_subelements:
+    - "{{ php7_nginx_fpm_www_pool_options }}"
+    - options
+  notify: Restart PHP-FPM-CentOS
+  when: ansible_distribution == "CentOS"
+
+- name: configure default PHP-FPM pool (www) - Ubuntu
+  ini_file:
+       dest=/etc/php/7.0/fpm/pool.d/www.conf
+    section='{{ item.0.section }}'
+     option='{{ item.1.option }}'
+      value='{{ item.1.value }}'
+  with_subelements:
+    - "{{ php7_nginx_fpm_www_pool_options }}"
+    - options
+  notify: Restart PHP-FPM-Ubuntu
+  when: ansible_distribution == "Ubuntu"

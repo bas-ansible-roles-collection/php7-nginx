@@ -1,5 +1,29 @@
 ---
-# ...
+# tasks file for php5-nginx (bridging-role)
+
+# Load OS specific variables
+- name: load OS specific variables
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- include: install-php-fpm.yml
+  tags:
+    - BARC_INSTALL
+    - BARC_INSTALL_PACKAGES
+
+- include: configure-php-fpm.yml
+  tags:
+    - BARC_CONFIGURE
+    - BARC_CONFIGURE_PACKAGE
+
+- include: configure-sapi-fpm.yml
+  tags:
+    - BARC_CONFIGURE
+    - BARC_CONFIGURE_PACKAGE
+
+- include: configure-nginx.yml
+  tags:
+    - BARC_CONFIGURE
+    - BARC_CONFIGURE_PACKAGE
 
 - include: register-role.yml
   tags:
