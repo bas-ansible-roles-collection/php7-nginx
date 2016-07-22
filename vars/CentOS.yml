@@ -1,0 +1,18 @@
+---
+# Role variables - inventory or playbook overrides will not be respected - use extra-vars to override
+
+# PHP5 Nginx specific variables
+php7_nginx_fpm_www_pool_socket: /var/run/php-fpm/php-fpm.sock
+php7_nginx_fpm_www_pool_options:
+  - section: "www"
+    options:
+      - option: listen
+        value: "{{ php7_nginx_fpm_www_pool_socket }}"
+      - option: listen.owner
+        value: nginx
+      - option: listen.group
+        value: nginx
+      - option: user
+        value: nginx
+      - option: group
+        value: nginx

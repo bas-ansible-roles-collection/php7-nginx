@@ -7,3 +7,5 @@
   become: yes
   roles:
     - bas-ansible-roles-collection.system-core
+    - bas-ansible-roles-collection.php7
+    - bas-ansible-roles-collection.nginx

@@ -4,3 +4,51 @@
 # BARC specific variables
 php7_nginx_barc_role_name: php7_nginx
 php7_nginx_barc_role_version: 0.1.0
+
+BARC_use_non_system_package_sources: true
+
+# Generic variables - for overriding all roles of a particular type (e.g. operating system, web-servers, etc.)
+webserver_virtual_hosts_document_indexes:
+  - index.php
+  - index.html
+
+# PHP5 Nginx specific variables
+php7_nginx_fpm_www_pool_socket: ""
+php7_nginx_fpm_www_pool_options: []
+
+php7_nginx_sapi_fpm_options:
+  - section: "Resource Limits"
+    options:
+      - option: max_execution_time  # (seconds)
+        value: 30
+        type: value
+      - option: max_input_time  # (seconds)
+        value: 60
+        type: value
+      - option: memory_limit
+        value: 128M
+        type: value
+  - section: "Error handling and logging"
+    options:
+      - option: error_reporting
+        value: "E_ALL & ~E_DEPRECATED"
+        type: value
+      - option: display_errors
+        value: "On"
+        type: flag
+      - option: display_startup_errors
+        value: "Off"
+        type: flag
+      - option: log_errors
+        value: "On"
+        type: flag
+  - section: "Module Settings"
+    options:
+      - option: date.timezone
+        value: "Europe/London"
+        type: value
+  - section: "PHP"
+    options:
+      - option: expose_php
+        value: "Off"
+        type: flag

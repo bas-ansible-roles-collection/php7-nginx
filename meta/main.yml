@@ -19,4 +19,6 @@ galaxy_info:
   galaxy_tags:
   - system
 
-dependencies: []
+dependencies:
+  - { role: 'bas-ansible-roles-collection.php7',  tags: BARC_ROLE_DEPENDENCY }
+  - { role: 'bas-ansible-roles-collection.nginx', tags: BARC_ROLE_DEPENDENCY }

@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+
+# Additional configuration file - PHP-FPM
+#
+# This file is included within 'server blocks' directives, which are in turn, included in the 'http' directive of the
+# main Nginx configuration file '/etc/nginx/nginx.conf'
+
+# Proxies requests to PHP-FPM via the Fast CGI protocol for relevant requests (i.e. for PHP pages)
+
+location ~ \.php$ {
+    try_files $uri =404;
+
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:{{ php7_nginx_fpm_www_pool_socket }};
+    fastcgi_index index.php;
+
+    # Typically a line such as 'include fastcgi_params;' would be included here, but server blocks based on templates
+    # from the 'bas-ansible-roles-collection.nginx' role are configured to automatically load all configuration files
+    # in '/etc/nginx/conf.d/server-blocks/*.conf'.
+    #
+    # As a 'fastcgi-params.conf' file is created in this directory, it will be automatically included, and does not need
+    # to be explicitly referenced here.
+    #
+    # If you are not using server block templates from the 'bas-ansible-roles-collection.nginx' roles you may need to
+    # include 'include fastcgi_params;' in your server block definition, this is not supported by this role.
+}

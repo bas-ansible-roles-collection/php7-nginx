@@ -19,6 +19,12 @@
 # These tests mirror individual tasks to ensure they execute correctly
 # E.g. creating a user, installing the right package or generating a valid configuration file
 
+- include: atomic/install-php-fpm.yml
+
+- include: atomic/configure-php-fpm.yml
+- include: atomic/configure-sapi-fpm.yml
+- include: atomic/configure-nginx.yml
+
 - include: atomic/register-role.yml
 
 # Functionality tests

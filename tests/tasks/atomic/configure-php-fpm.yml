@@ -1,0 +1,30 @@
+---
+# Check the PHP-FPM default pool is configured correctly
+
+- name: get contents of default PHP-FPM pool (www) - CentOS
+  command: cat /etc/php-fpm.d/www.conf
+  changed_when: false
+  register: php7_nginx_test_fact_php_fpm_default_pool_centos_configuration_file_contents
+  when: ansible_distribution == "CentOS"
+- name: assert default PHP-FPM pool (www) configuration file was generated correctly - CentOS
+  assert:
+    that:
+      - "'{{ item.1.option }} = {{ item.1.value }}' in php7_nginx_test_fact_php_fpm_default_pool_centos_configuration_file_contents.stdout"
+  with_subelements:
+    - "{{ php7_nginx_fpm_www_pool_options }}"
+    - options
+  when: ansible_distribution == "CentOS"
+
+- name: get contents of default PHP-FPM pool (www) - Ubuntu
+  command: cat /etc/php/7.0/fpm/pool.d/www.conf
+  changed_when: false
+  register: php7_nginx_test_fact_php_fpm_default_pool_ubuntu_configuration_file_contents
+  when: ansible_distribution == "Ubuntu"
+- name: assert default PHP-FPM pool (www) configuration file was generated correctly - Ubuntu
+  assert:
+    that:
+      - "'{{ item.1.option }} = {{ item.1.value }}' in php7_nginx_test_fact_php_fpm_default_pool_ubuntu_configuration_file_contents.stdout"
+  with_subelements:
+    - "{{ php7_nginx_fpm_www_pool_options }}"
+    - options
+  when: ansible_distribution == "Ubuntu"

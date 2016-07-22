@@ -1,0 +1,11 @@
+---
+# Generate Nginx additional configuration files for use with PHP-FPM
+
+- name: generate Nginx additional configuration files
+  template:
+    src="etc/nginx/conf.d/{{ item }}.conf.j2"
+    dest="/etc/nginx/conf.d/{{ item }}.conf"
+  with_items:
+    - server-blocks/php-fpm
+    - server-blocks/fastcgi-params
+  notify: Restart Nginx
