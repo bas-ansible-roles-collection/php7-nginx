@@ -311,7 +311,7 @@ More information is available in the
 implications if overriding this value, see the *Limitations* section for more information
 * Default:
     * `/var/run/php-fpm/php-fpm.sock` - CentOS
-    * `/var/run/php-fpm.sock` - Ubuntu
+    * `/var/run/php/php7.0-fpm.sock` - Ubuntu
 
 #### *php7_nginx_fpm_www_pool_options*
 
