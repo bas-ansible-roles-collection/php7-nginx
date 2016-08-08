@@ -3,7 +3,7 @@
 
 # BARC specific variables
 php7_nginx_barc_role_name: php7_nginx
-php7_nginx_barc_role_version: 0.1.1
+php7_nginx_barc_role_version: 0.1.2
 
 BARC_use_non_system_package_sources: true
 
