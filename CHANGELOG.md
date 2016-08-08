@@ -7,6 +7,8 @@ Remember: Make sure to update `php7_nginx_barc_role_version` variable when a new
 
 ## [Unreleased][unreleased]
 
+## 0.1.2 - 08/08/2016
+
 ### Fixed
 
 * Missing handlers file
